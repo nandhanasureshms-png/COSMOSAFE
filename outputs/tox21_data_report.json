@@ -1,0 +1,88 @@
+{
+    "dataset_name": "Tox21",
+    "total_records": 7831,
+    "total_columns": 14,
+    "total_endpoints": 12,
+    "endpoints": {
+        "NR-AR": {
+            "active": 309,
+            "inactive": 6956,
+            "missing": 566
+        },
+        "NR-AR-LBD": {
+            "active": 237,
+            "inactive": 6521,
+            "missing": 1073
+        },
+        "NR-AhR": {
+            "active": 768,
+            "inactive": 5781,
+            "missing": 1282
+        },
+        "NR-Aromatase": {
+            "active": 300,
+            "inactive": 5521,
+            "missing": 2010
+        },
+        "NR-ER": {
+            "active": 793,
+            "inactive": 5400,
+            "missing": 1638
+        },
+        "NR-ER-LBD": {
+            "active": 350,
+            "inactive": 6605,
+            "missing": 876
+        },
+        "NR-PPAR-gamma": {
+            "active": 186,
+            "inactive": 6264,
+            "missing": 1381
+        },
+        "SR-ARE": {
+            "active": 942,
+            "inactive": 4890,
+            "missing": 1999
+        },
+        "SR-ATAD5": {
+            "active": 264,
+            "inactive": 6808,
+            "missing": 759
+        },
+        "SR-HSE": {
+            "active": 372,
+            "inactive": 6095,
+            "missing": 1364
+        },
+        "SR-MMP": {
+            "active": 918,
+            "inactive": 4892,
+            "missing": 2021
+        },
+        "SR-p53": {
+            "active": 423,
+            "inactive": 6351,
+            "missing": 1057
+        }
+    },
+    "missing_values": {
+        "NR-AR": 566,
+        "NR-AR-LBD": 1073,
+        "NR-AhR": 1282,
+        "NR-Aromatase": 2010,
+        "NR-ER": 1638,
+        "NR-ER-LBD": 876,
+        "NR-PPAR-gamma": 1381,
+        "SR-ARE": 1999,
+        "SR-ATAD5": 759,
+        "SR-HSE": 1364,
+        "SR-MMP": 2021,
+        "SR-p53": 1057,
+        "mol_id": 0,
+        "smiles": 0
+    },
+    "duplicate_information": {
+        "exact_duplicate_rows": 0,
+        "duplicate_smiles": 0
+    }
+}

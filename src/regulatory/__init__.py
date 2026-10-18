@@ -1,0 +1,1 @@
+"""CosmoSafe Cosmetic Regulatory Package."""

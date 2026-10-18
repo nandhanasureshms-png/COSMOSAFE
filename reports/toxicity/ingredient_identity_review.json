@@ -1,0 +1,557 @@
+{
+  "title": "CosmoSafe Chemical Identity Review Registry",
+  "description": "Registry of ingredients requiring manual identity review before QSAR toxicity screening.",
+  "total_ingredients_audited": 32,
+  "verified_identities_count": 5,
+  "pending_reviews_count": 27,
+  "pending_reviews_by_status": {
+    "candidate_pending_curated_approval": 8,
+    "ocr_corruption_pending_approval": 11,
+    "complex_mixture_unsupported_for_qsar": 7,
+    "unresolved_no_candidate": 1,
+    "transient_service_error": 0,
+    "ambiguous_multiple_candidates": 0,
+    "invalid_or_blank_input": 0
+  },
+  "verified_identities": [
+    {
+      "original_name": "Aqua",
+      "curated_cid": 962,
+      "molecular_formula": "H2O",
+      "connectivity_smiles": "O",
+      "review_status": "verified_curated_match"
+    },
+    {
+      "original_name": "Octocrylene",
+      "curated_cid": 22571,
+      "molecular_formula": "C24H27NO2",
+      "connectivity_smiles": "CCCCC(CC)COC(=O)C(=C(C1=CC=CC=C1)C2=CC=CC=C2)C#N",
+      "review_status": "verified_curated_match"
+    },
+    {
+      "original_name": "Diisopropyl Sebacate",
+      "curated_cid": 24096,
+      "molecular_formula": "C16H30O4",
+      "connectivity_smiles": "CC(C)OC(=O)CCCCCCCCC(=O)OC(C)C",
+      "review_status": "verified_curated_match"
+    },
+    {
+      "original_name": "Isododecane",
+      "curated_cid": 23459,
+      "molecular_formula": "C12H26",
+      "connectivity_smiles": "CCCCCCCCCC(C)C",
+      "review_status": "verified_curated_match"
+    },
+    {
+      "original_name": "Niacinamide",
+      "curated_cid": 936,
+      "molecular_formula": "C6H6N2O",
+      "connectivity_smiles": "C1=CC(=CN=C1)C(=O)N",
+      "review_status": "verified_curated_match"
+    }
+  ],
+  "pending_identity_reviews": [
+    {
+      "original_name": "Diisopropy| Adipate",
+      "primary_status": "not_found",
+      "review_status": "ocr_corruption_pending_approval",
+      "has_proposed_correction": true,
+      "proposed_correction": "Diisopropyl Adipate",
+      "correction_type": "character_substitution",
+      "correction_notes": "Pipe character '|' substituted for letter 'l'.",
+      "candidate_chemical_identity": {
+        "pubchem_cid": null,
+        "candidate_pubchem_cids": [],
+        "iupac_name": null,
+        "molecular_formula": null,
+        "connectivity_smiles": null
+      },
+      "evidence": "OCR corruption detected: 'character_substitution'. Proposed correction: 'Diisopropyl Adipate'.",
+      "action_required": "Confirm OCR correction before chemical identity mapping."
+    },
+    {
+      "original_name": "Propylene Giycx Seanrylate/Dicaprate",
+      "primary_status": "not_found",
+      "review_status": "ocr_corruption_pending_approval",
+      "has_proposed_correction": true,
+      "proposed_correction": "Propylene Glycol Dicaprylate/Dicaprate",
+      "correction_type": "ocr_misspelling",
+      "correction_notes": "Typographical errors 'giycx' -> 'glycol' and 'seanrylate' -> 'dicaprylate'.",
+      "candidate_chemical_identity": {
+        "pubchem_cid": null,
+        "candidate_pubchem_cids": [],
+        "iupac_name": null,
+        "molecular_formula": null,
+        "connectivity_smiles": null
+      },
+      "evidence": "OCR corruption detected: 'ocr_misspelling'. Proposed correction: 'Propylene Glycol Dicaprylate/Dicaprate'.",
+      "action_required": "Confirm OCR correction before chemical identity mapping."
+    },
+    {
+      "original_name": "C12-15 Alkyl Benzoate",
+      "primary_status": "complex_mixture",
+      "review_status": "complex_mixture_unsupported_for_qsar",
+      "has_proposed_correction": false,
+      "proposed_correction": null,
+      "correction_type": "none_detected",
+      "correction_notes": "No obvious OCR corruption detected.",
+      "candidate_chemical_identity": {
+        "pubchem_cid": null,
+        "candidate_pubchem_cids": [],
+        "iupac_name": null,
+        "molecular_formula": null,
+        "connectivity_smiles": null
+      },
+      "evidence": "Ingredient is a botanical extract, fragrance, or polymer. Cannot be represented by a single molecular structure for NR-AR QSAR.",
+      "action_required": "Document as complex mixture; assess via alternative testing strategies."
+    },
+    {
+      "original_name": "Buty Wehoxydibenzoylmethane",
+      "primary_status": "not_found",
+      "review_status": "ocr_corruption_pending_approval",
+      "has_proposed_correction": true,
+      "proposed_correction": "Butyl Methoxydibenzoylmethane",
+      "correction_type": "ocr_misspelling",
+      "correction_notes": "Leading truncation 'Buty' -> 'Butyl' and OCR typo 'Wehoxydibenzoylmethane' -> 'Methoxydibenzoylmethane'.",
+      "candidate_chemical_identity": {
+        "pubchem_cid": null,
+        "candidate_pubchem_cids": [],
+        "iupac_name": null,
+        "molecular_formula": null,
+        "connectivity_smiles": null
+      },
+      "evidence": "OCR corruption detected: 'ocr_misspelling'. Proposed correction: 'Butyl Methoxydibenzoylmethane'.",
+      "action_required": "Confirm OCR correction before chemical identity mapping."
+    },
+    {
+      "original_name": "Arachidy| Alcoho! Sehenyi Alcohol",
+      "primary_status": "not_found",
+      "review_status": "ocr_corruption_pending_approval",
+      "has_proposed_correction": true,
+      "proposed_correction": "Arachidyl Alcohol / Behenyl Alcohol",
+      "correction_type": "merged_tokens_and_substitution",
+      "correction_notes": "Two separate cosmetic fatty alcohol ingredients merged by OCR segmentation error, with glyph substitutions '|' and '!' for 'l'.",
+      "candidate_chemical_identity": {
+        "pubchem_cid": null,
+        "candidate_pubchem_cids": [],
+        "iupac_name": null,
+        "molecular_formula": null,
+        "connectivity_smiles": null
+      },
+      "evidence": "OCR corruption detected: 'merged_tokens_and_substitution'. Proposed correction: 'Arachidyl Alcohol / Behenyl Alcohol'.",
+      "action_required": "Confirm OCR correction before chemical identity mapping."
+    },
+    {
+      "original_name": "Arachidy! Glucoside",
+      "primary_status": "not_found",
+      "review_status": "ocr_corruption_pending_approval",
+      "has_proposed_correction": true,
+      "proposed_correction": "Arachidyl Glucoside",
+      "correction_type": "character_substitution",
+      "correction_notes": "Exclamation mark '!' substituted for letter 'l'.",
+      "candidate_chemical_identity": {
+        "pubchem_cid": null,
+        "candidate_pubchem_cids": [],
+        "iupac_name": null,
+        "molecular_formula": null,
+        "connectivity_smiles": null
+      },
+      "evidence": "OCR corruption detected: 'character_substitution'. Proposed correction: 'Arachidyl Glucoside'.",
+      "action_required": "Confirm OCR correction before chemical identity mapping."
+    },
+    {
+      "original_name": "Caprylic/Capric Triglyceride",
+      "primary_status": "complex_mixture",
+      "review_status": "complex_mixture_unsupported_for_qsar",
+      "has_proposed_correction": false,
+      "proposed_correction": null,
+      "correction_type": "none_detected",
+      "correction_notes": "No obvious OCR corruption detected.",
+      "candidate_chemical_identity": {
+        "pubchem_cid": null,
+        "candidate_pubchem_cids": [],
+        "iupac_name": null,
+        "molecular_formula": null,
+        "connectivity_smiles": null
+      },
+      "evidence": "Ingredient is a botanical extract, fragrance, or polymer. Cannot be represented by a single molecular structure for NR-AR QSAR.",
+      "action_required": "Document as complex mixture; assess via alternative testing strategies."
+    },
+    {
+      "original_name": "Titanium Doxide",
+      "primary_status": "not_found",
+      "review_status": "ocr_corruption_pending_approval",
+      "has_proposed_correction": true,
+      "proposed_correction": "Titanium Dioxide",
+      "correction_type": "ocr_misspelling",
+      "correction_notes": "Missing letter 'i' in 'Doxide'.",
+      "candidate_chemical_identity": {
+        "pubchem_cid": null,
+        "candidate_pubchem_cids": [],
+        "iupac_name": null,
+        "molecular_formula": null,
+        "connectivity_smiles": null
+      },
+      "evidence": "OCR corruption detected: 'ocr_misspelling'. Proposed correction: 'Titanium Dioxide'.",
+      "action_required": "Confirm OCR correction before chemical identity mapping."
+    },
+    {
+      "original_name": "Ethylhexyi Triazone",
+      "primary_status": "not_found",
+      "review_status": "ocr_corruption_pending_approval",
+      "has_proposed_correction": true,
+      "proposed_correction": "Ethylhexyl Triazone",
+      "correction_type": "character_substitution",
+      "correction_notes": "Letter 'i' substituted for letter 'l' in 'Ethylhexyi'.",
+      "candidate_chemical_identity": {
+        "pubchem_cid": null,
+        "candidate_pubchem_cids": [],
+        "iupac_name": null,
+        "molecular_formula": null,
+        "connectivity_smiles": null
+      },
+      "evidence": "OCR corruption detected: 'character_substitution'. Proposed correction: 'Ethylhexyl Triazone'.",
+      "action_required": "Confirm OCR correction before chemical identity mapping."
+    },
+    {
+      "original_name": "PEG-100 Stearate",
+      "primary_status": "complex_mixture",
+      "review_status": "complex_mixture_unsupported_for_qsar",
+      "has_proposed_correction": false,
+      "proposed_correction": null,
+      "correction_type": "none_detected",
+      "correction_notes": "No obvious OCR corruption detected.",
+      "candidate_chemical_identity": {
+        "pubchem_cid": null,
+        "candidate_pubchem_cids": [],
+        "iupac_name": null,
+        "molecular_formula": null,
+        "connectivity_smiles": null
+      },
+      "evidence": "Ingredient is a botanical extract, fragrance, or polymer. Cannot be represented by a single molecular structure for NR-AR QSAR.",
+      "action_required": "Document as complex mixture; assess via alternative testing strategies."
+    },
+    {
+      "original_name": "Glyceryl Stearate",
+      "primary_status": "needs_review",
+      "review_status": "candidate_pending_curated_approval",
+      "has_proposed_correction": false,
+      "proposed_correction": null,
+      "correction_type": "none_detected",
+      "correction_notes": "No obvious OCR corruption detected.",
+      "candidate_chemical_identity": {
+        "pubchem_cid": 93066,
+        "candidate_pubchem_cids": [
+          93066
+        ],
+        "iupac_name": "octadecanoic acid;propane-1,2,3-triol",
+        "molecular_formula": "C21H44O5",
+        "connectivity_smiles": "CCCCCCCCCCCCCCCCCC(=O)O.C(C(CO)O)O"
+      },
+      "evidence": "Single candidate CID 93066 (octadecanoic acid;propane-1,2,3-triol) identified on PubChem, but not confirmed in curated list. Independent CIR/CosIng review required.",
+      "action_required": "Review candidate CID against trusted chemical databases (CosIng, CIR, PubChem) before adding to CURATED_CIDS."
+    },
+    {
+      "original_name": "Butyl Gyoo",
+      "primary_status": "not_found",
+      "review_status": "ocr_corruption_pending_approval",
+      "has_proposed_correction": true,
+      "proposed_correction": "Butylene Glycol",
+      "correction_type": "ocr_truncation",
+      "correction_notes": "Truncation of 'glycol' into 'gyoo'.",
+      "candidate_chemical_identity": {
+        "pubchem_cid": null,
+        "candidate_pubchem_cids": [],
+        "iupac_name": null,
+        "molecular_formula": null,
+        "connectivity_smiles": null
+      },
+      "evidence": "OCR corruption detected: 'ocr_truncation'. Proposed correction: 'Butylene Glycol'.",
+      "action_required": "Confirm OCR correction before chemical identity mapping."
+    },
+    {
+      "original_name": "Linoleic Acid",
+      "primary_status": "needs_review",
+      "review_status": "candidate_pending_curated_approval",
+      "has_proposed_correction": false,
+      "proposed_correction": null,
+      "correction_type": "none_detected",
+      "correction_notes": "No obvious OCR corruption detected.",
+      "candidate_chemical_identity": {
+        "pubchem_cid": 5280450,
+        "candidate_pubchem_cids": [
+          5280450
+        ],
+        "iupac_name": "(9Z,12Z)-octadeca-9,12-dienoic acid",
+        "molecular_formula": "C18H32O2",
+        "connectivity_smiles": "CCCCCC=CCC=CCCCCCCCC(=O)O"
+      },
+      "evidence": "Single candidate CID 5280450 ((9Z,12Z)-octadeca-9,12-dienoic acid) identified on PubChem, but not confirmed in curated list. Independent CIR/CosIng review required.",
+      "action_required": "Review candidate CID against trusted chemical databases (CosIng, CIR, PubChem) before adding to CURATED_CIDS."
+    },
+    {
+      "original_name": "Linolenic Acid",
+      "primary_status": "needs_review",
+      "review_status": "candidate_pending_curated_approval",
+      "has_proposed_correction": false,
+      "proposed_correction": null,
+      "correction_type": "none_detected",
+      "correction_notes": "No obvious OCR corruption detected.",
+      "candidate_chemical_identity": {
+        "pubchem_cid": 5280934,
+        "candidate_pubchem_cids": [
+          5280934
+        ],
+        "iupac_name": "(9Z,12Z,15Z)-octadeca-9,12,15-trienoic acid",
+        "molecular_formula": "C18H30O2",
+        "connectivity_smiles": "CCC=CCC=CCC=CCCCCCCCC(=O)O"
+      },
+      "evidence": "Single candidate CID 5280934 ((9Z,12Z,15Z)-octadeca-9,12,15-trienoic acid) identified on PubChem, but not confirmed in curated list. Independent CIR/CosIng review required.",
+      "action_required": "Review candidate CID against trusted chemical databases (CosIng, CIR, PubChem) before adding to CURATED_CIDS."
+    },
+    {
+      "original_name": "Panthenol",
+      "primary_status": "needs_review",
+      "review_status": "candidate_pending_curated_approval",
+      "has_proposed_correction": false,
+      "proposed_correction": null,
+      "correction_type": "none_detected",
+      "correction_notes": "No obvious OCR corruption detected.",
+      "candidate_chemical_identity": {
+        "pubchem_cid": 4678,
+        "candidate_pubchem_cids": [
+          4678
+        ],
+        "iupac_name": "2,4-dihydroxy-N-(3-hydroxypropyl)-3,3-dimethylbutanamide",
+        "molecular_formula": "C9H19NO4",
+        "connectivity_smiles": "CC(C)(CO)C(C(=O)NCCCO)O"
+      },
+      "evidence": "Single candidate CID 4678 (2,4-dihydroxy-N-(3-hydroxypropyl)-3,3-dimethylbutanamide) identified on PubChem, but not confirmed in curated list. Independent CIR/CosIng review required.",
+      "action_required": "Review candidate CID against trusted chemical databases (CosIng, CIR, PubChem) before adding to CURATED_CIDS."
+    },
+    {
+      "original_name": "Sodium Hyaluronate",
+      "primary_status": "complex_mixture",
+      "review_status": "complex_mixture_unsupported_for_qsar",
+      "has_proposed_correction": false,
+      "proposed_correction": null,
+      "correction_type": "none_detected",
+      "correction_notes": "No obvious OCR corruption detected.",
+      "candidate_chemical_identity": {
+        "pubchem_cid": null,
+        "candidate_pubchem_cids": [],
+        "iupac_name": null,
+        "molecular_formula": null,
+        "connectivity_smiles": null
+      },
+      "evidence": "Ingredient is a botanical extract, fragrance, or polymer. Cannot be represented by a single molecular structure for NR-AR QSAR.",
+      "action_required": "Document as complex mixture; assess via alternative testing strategies."
+    },
+    {
+      "original_name": "Hanioin",
+      "primary_status": "not_found",
+      "review_status": "unresolved_no_candidate",
+      "has_proposed_correction": false,
+      "proposed_correction": null,
+      "correction_type": "unresolved_ocr_noise",
+      "correction_notes": "Heavily distorted OCR character sequence with multiple possible interpretations.",
+      "candidate_chemical_identity": {
+        "pubchem_cid": null,
+        "candidate_pubchem_cids": [],
+        "iupac_name": null,
+        "molecular_formula": null,
+        "connectivity_smiles": null
+      },
+      "evidence": "No candidate record found on PubChem. May be heavily corrupted OCR text, proprietary trade name, or unlisted mixture.",
+      "action_required": "Inspect label image for correct spelling."
+    },
+    {
+      "original_name": "Tocopherol Acetate",
+      "primary_status": "needs_review",
+      "review_status": "candidate_pending_curated_approval",
+      "has_proposed_correction": false,
+      "proposed_correction": null,
+      "correction_type": "none_detected",
+      "correction_notes": "No obvious OCR corruption detected.",
+      "candidate_chemical_identity": {
+        "pubchem_cid": 86472,
+        "candidate_pubchem_cids": [
+          86472
+        ],
+        "iupac_name": "[(2R)-2,5,7,8-tetramethyl-2-[(4R,8R)-4,8,12-trimethyltridecyl]-3,4-dihydrochromen-6-yl] acetate",
+        "molecular_formula": "C31H52O3",
+        "connectivity_smiles": "CC1=C(C(=C(C2=C1OC(CC2)(C)CCCC(C)CCCC(C)CCCC(C)C)C)OC(=O)C)C"
+      },
+      "evidence": "Single candidate CID 86472 ([(2R)-2,5,7,8-tetramethyl-2-[(4R,8R)-4,8,12-trimethyltridecyl]-3,4-dihydrochromen-6-yl] acetate) identified on PubChem, but not confirmed in curated list. Independent CIR/CosIng review required.",
+      "action_required": "Review candidate CID against trusted chemical databases (CosIng, CIR, PubChem) before adding to CURATED_CIDS."
+    },
+    {
+      "original_name": "Retinol",
+      "primary_status": "needs_review",
+      "review_status": "candidate_pending_curated_approval",
+      "has_proposed_correction": false,
+      "proposed_correction": null,
+      "correction_type": "none_detected",
+      "correction_notes": "No obvious OCR corruption detected.",
+      "candidate_chemical_identity": {
+        "pubchem_cid": 445354,
+        "candidate_pubchem_cids": [
+          445354
+        ],
+        "iupac_name": "(2E,4E,6E,8E)-3,7-dimethyl-9-(2,6,6-trimethylcyclohexen-1-yl)nona-2,4,6,8-tetraen-1-ol",
+        "molecular_formula": "C20H30O",
+        "connectivity_smiles": "CC1=C(C(CCC1)(C)C)C=CC(=CC=CC(=CCO)C)C"
+      },
+      "evidence": "Single candidate CID 445354 ((2E,4E,6E,8E)-3,7-dimethyl-9-(2,6,6-trimethylcyclohexen-1-yl)nona-2,4,6,8-tetraen-1-ol) identified on PubChem, but not confirmed in curated list. Independent CIR/CosIng review required.",
+      "action_required": "Review candidate CID against trusted chemical databases (CosIng, CIR, PubChem) before adding to CURATED_CIDS."
+    },
+    {
+      "original_name": "Polysorbate 20",
+      "primary_status": "complex_mixture",
+      "review_status": "complex_mixture_unsupported_for_qsar",
+      "has_proposed_correction": false,
+      "proposed_correction": null,
+      "correction_type": "none_detected",
+      "correction_notes": "No obvious OCR corruption detected.",
+      "candidate_chemical_identity": {
+        "pubchem_cid": null,
+        "candidate_pubchem_cids": [],
+        "iupac_name": null,
+        "molecular_formula": null,
+        "connectivity_smiles": null
+      },
+      "evidence": "Ingredient is a botanical extract, fragrance, or polymer. Cannot be represented by a single molecular structure for NR-AR QSAR.",
+      "action_required": "Document as complex mixture; assess via alternative testing strategies."
+    },
+    {
+      "original_name": "Hydroxyethy! Acy'* Sodum Acryloyidimethyl Taurate Copolymer",
+      "primary_status": "not_found",
+      "review_status": "ocr_corruption_pending_approval",
+      "has_proposed_correction": true,
+      "proposed_correction": "Hydroxyethyl Acrylate/Sodium Acryloyldimethyl Taurate Copolymer",
+      "correction_type": "ocr_noise_and_substitution",
+      "correction_notes": "Punctuation noise ('!', ''*') and OCR typos in synthetic copolymer name.",
+      "candidate_chemical_identity": {
+        "pubchem_cid": null,
+        "candidate_pubchem_cids": [],
+        "iupac_name": null,
+        "molecular_formula": null,
+        "connectivity_smiles": null
+      },
+      "evidence": "OCR corruption detected: 'ocr_noise_and_substitution'. Proposed correction: 'Hydroxyethyl Acrylate/Sodium Acryloyldimethyl Taurate Copolymer'.",
+      "action_required": "Confirm OCR correction before chemical identity mapping."
+    },
+    {
+      "original_name": "Xanthan Gum",
+      "primary_status": "complex_mixture",
+      "review_status": "complex_mixture_unsupported_for_qsar",
+      "has_proposed_correction": false,
+      "proposed_correction": null,
+      "correction_type": "none_detected",
+      "correction_notes": "No obvious OCR corruption detected.",
+      "candidate_chemical_identity": {
+        "pubchem_cid": null,
+        "candidate_pubchem_cids": [],
+        "iupac_name": null,
+        "molecular_formula": null,
+        "connectivity_smiles": null
+      },
+      "evidence": "Ingredient is a botanical extract, fragrance, or polymer. Cannot be represented by a single molecular structure for NR-AR QSAR.",
+      "action_required": "Document as complex mixture; assess via alternative testing strategies."
+    },
+    {
+      "original_name": "Polyacryale Cspolymer-6",
+      "primary_status": "not_found",
+      "review_status": "ocr_corruption_pending_approval",
+      "has_proposed_correction": true,
+      "proposed_correction": "Polyacrylate Crosspolymer-6",
+      "correction_type": "ocr_misspelling",
+      "correction_notes": "Typos 'polyacryale' -> 'polyacrylate' and 'cspolymer' -> 'crosspolymer'.",
+      "candidate_chemical_identity": {
+        "pubchem_cid": null,
+        "candidate_pubchem_cids": [],
+        "iupac_name": null,
+        "molecular_formula": null,
+        "connectivity_smiles": null
+      },
+      "evidence": "OCR corruption detected: 'ocr_misspelling'. Proposed correction: 'Polyacrylate Crosspolymer-6'.",
+      "action_required": "Confirm OCR correction before chemical identity mapping."
+    },
+    {
+      "original_name": "Silica",
+      "primary_status": "needs_review",
+      "review_status": "candidate_pending_curated_approval",
+      "has_proposed_correction": false,
+      "proposed_correction": null,
+      "correction_type": "none_detected",
+      "correction_notes": "No obvious OCR corruption detected.",
+      "candidate_chemical_identity": {
+        "pubchem_cid": 24261,
+        "candidate_pubchem_cids": [
+          24261
+        ],
+        "iupac_name": "dioxosilane",
+        "molecular_formula": "O2Si",
+        "connectivity_smiles": "O=[Si]=O"
+      },
+      "evidence": "Single candidate CID 24261 (dioxosilane) identified on PubChem, but not confirmed in curated list. Independent CIR/CosIng review required.",
+      "action_required": "Review candidate CID against trusted chemical databases (CosIng, CIR, PubChem) before adding to CURATED_CIDS."
+    },
+    {
+      "original_name": "Acacia Gum",
+      "primary_status": "complex_mixture",
+      "review_status": "complex_mixture_unsupported_for_qsar",
+      "has_proposed_correction": false,
+      "proposed_correction": null,
+      "correction_type": "none_detected",
+      "correction_notes": "No obvious OCR corruption detected.",
+      "candidate_chemical_identity": {
+        "pubchem_cid": null,
+        "candidate_pubchem_cids": [],
+        "iupac_name": null,
+        "molecular_formula": null,
+        "connectivity_smiles": null
+      },
+      "evidence": "Ingredient is a botanical extract, fragrance, or polymer. Cannot be represented by a single molecular structure for NR-AR QSAR.",
+      "action_required": "Document as complex mixture; assess via alternative testing strategies."
+    },
+    {
+      "original_name": "Phenoxyethanol",
+      "primary_status": "needs_review",
+      "review_status": "candidate_pending_curated_approval",
+      "has_proposed_correction": false,
+      "proposed_correction": null,
+      "correction_type": "none_detected",
+      "correction_notes": "No obvious OCR corruption detected.",
+      "candidate_chemical_identity": {
+        "pubchem_cid": 31236,
+        "candidate_pubchem_cids": [
+          31236
+        ],
+        "iupac_name": "2-phenoxyethanol",
+        "molecular_formula": "C8H10O2",
+        "connectivity_smiles": "C1=CC=C(C=C1)OCCO"
+      },
+      "evidence": "Single candidate CID 31236 (2-phenoxyethanol) identified on PubChem, but not confirmed in curated list. Independent CIR/CosIng review required.",
+      "action_required": "Review candidate CID against trusted chemical databases (CosIng, CIR, PubChem) before adding to CURATED_CIDS."
+    },
+    {
+      "original_name": "Ethylhexyigyoe\" \\sotium Ethylenediamine Disuccinate Wine = ee",
+      "primary_status": "not_found",
+      "review_status": "ocr_corruption_pending_approval",
+      "has_proposed_correction": true,
+      "proposed_correction": "Ethylhexylglycerin / Trisodium Ethylenediamine Disuccinate",
+      "correction_type": "merged_tokens_and_noise",
+      "correction_notes": "Merged ingredient tokens with OCR noise and trailing junk text ('Wine = ee').",
+      "candidate_chemical_identity": {
+        "pubchem_cid": null,
+        "candidate_pubchem_cids": [],
+        "iupac_name": null,
+        "molecular_formula": null,
+        "connectivity_smiles": null
+      },
+      "evidence": "OCR corruption detected: 'merged_tokens_and_noise'. Proposed correction: 'Ethylhexylglycerin / Trisodium Ethylenediamine Disuccinate'.",
+      "action_required": "Confirm OCR correction before chemical identity mapping."
+    }
+  ]
+}

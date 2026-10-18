@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CosmoSafe Safety Dashboard — Cosmetic Formulation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0b0f19;
+      --card-bg: rgba(22, 30, 49, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --accent-cyan: #06b6d4;
+      --accent-blue: #3b82f6;
+      --accent-indigo: #6366f1;
+      --accent-purple: #a855f7;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: radial-gradient(circle at 15% 15%, #131b2e 0%, var(--bg-dark) 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    /* Header & Navigation */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--card-border);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-badge {
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-indigo));
+      padding: 0.5rem 0.85rem;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(6, 182, 212, 0.35);
+    }
+
+    .logo-title h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .logo-title p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Product Assessment Banner */
+    .assessment-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .assessment-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 100%;
+      background: #475569;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .badge-danger { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4); }
+    .badge-warning { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); }
+    .badge-success { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+    .badge-neutral { background: rgba(100, 116, 139, 0.2); color: #cbd5e1; border: 1px solid rgba(100, 116, 139, 0.4); }
+
+    .assessment-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .assessment-narrative {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* Metrics Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .metric-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 1.25rem;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .metric-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(6, 182, 212, 0.4);
+    }
+
+    .metric-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .metric-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .metric-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    /* Controls & Filter Bar */
+    .controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .search-input {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--card-border);
+      padding: 0.65rem 1rem;
+      border-radius: 10px;
+      color: #fff;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      min-width: 280px;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--accent-cyan);
+    }
+
+    .filter-pills {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 0.4rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: rgba(6, 182, 212, 0.2);
+      color: var(--accent-cyan);
+      border-color: var(--accent-cyan);
+    }
+
+    /* Ingredients Table */
+    .table-container {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      overflow-x: auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      margin-bottom: 2rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    th {
+      background: rgba(15, 23, 42, 0.9);
+      padding: 1rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--card-border);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+
+    td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      vertical-align: top;
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .mono {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .badge-verified { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+    .badge-review { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+    .badge-notfound { background: rgba(100, 116, 139, 0.2); color: #94a3b8; }
+    .badge-qsar-inactive { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+    .badge-qsar-active { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+    .badge-warning-lowsim { background: rgba(217, 119, 6, 0.2); color: #f59e0b; }
+
+    /* Expandable Row Details */
+    .row-detail {
+      background: rgba(15, 23, 42, 0.6);
+      padding: 1rem;
+      margin-top: 0.5rem;
+      border-radius: 8px;
+      border-left: 3px solid var(--accent-cyan);
+      font-size: 0.85rem;
+      display: none;
+    }
+
+    .expand-btn {
+      background: none;
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+
+    .expand-btn:hover {
+      color: #fff;
+      border-color: var(--accent-cyan);
+    }
+
+    /* Knowledge Graph & Disclaimer */
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 1.5rem;
+    }
+
+    .footer-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+      color: var(--accent-cyan);
+    }
+
+    .footer-card p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo-group">
+        <div class="logo-badge">CS</div>
+        <div class="logo-title">
+          <h1>CosmoSafe Safety Intelligence</h1>
+          <p>Explainable Cosmetic Formulation Toxicity & Regulatory Evaluation</p>
+        </div>
+      </div>
+      <div>
+        <span style="font-size: 0.85rem; color: var(--text-muted);">Jurisdiction:</span>
+        <strong style="color: var(--accent-cyan);">India</strong>
+        <span style="margin: 0 0.5rem; color: var(--card-border);">|</span>
+        <span style="font-size: 0.85rem; color: var(--text-muted);">Report Version:</span>
+        <strong style="font-family: var(--font-mono); font-size: 0.85rem;">v2.0</strong>
+      </div>
+    </header>
+
+    <!-- Overall Product Assessment Banner -->
+    <section class="assessment-card" id="assessment-banner">
+      <div class="status-badge badge-neutral">Not assessed due to missing or uncertain information</div>
+      <div class="assessment-title">Cosmetic Formulation — Formulation Evaluation</div>
+      <p class="assessment-narrative">A comprehensive product safety assessment cannot be completed because 27 of 32 ingredients have unverified identities, unresolved OCR corruptions, or missing concentration data. CosmoSafe strictly does not infer safety for unassessed ingredients.</p>
+    </section>
+
+    <!-- Key Metrics Grid -->
+    <section class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">Ingredients Processed</div>
+        <div class="metric-value">32</div>
+        <div class="metric-sub">100% input count preserved</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Verified Identities</div>
+        <div class="metric-value" style="color: #34d399;">5</div>
+        <div class="metric-sub">Independent curated match</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">QSAR Screened</div>
+        <div class="metric-value" style="color: #60a5fa;">5</div>
+        <div class="metric-sub">Tox21 NR-AR Random Forest</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Identities Needing Review</div>
+        <div class="metric-value" style="color: #fbbf24;">8</div>
+        <div class="metric-sub">Candidates requiring review</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Unassessed / Not Found</div>
+        <div class="metric-value" style="color: #94a3b8;">27</div>
+        <div class="metric-sub">No safety inference made</div>
+      </div>
+    </section>
+
+    <!-- Filter & Search Controls -->
+    <div class="controls-bar">
+      <input type="text" id="ingredientSearch" class="search-input" placeholder="Search by name, CID, or status...">
+      <div class="filter-pills">
+        <button class="filter-btn active" onclick="filterTable('all')">All (32)</button>
+        <button class="filter-btn" onclick="filterTable('verified')">Verified (5)</button>
+        <button class="filter-btn" onclick="filterTable('needs_review')">Needs Review (8)</button>
+        <button class="filter-btn" onclick="filterTable('not_found')">Not Found (12)</button>
+        <button class="filter-btn" onclick="filterTable('complex_mixture')">Complex Mixture (7)</button>
+        <button class="filter-btn" onclick="filterTable('assessed')">QSAR Assessed (5)</button>
+      </div>
+    </div>
+
+    <!-- Table of Ingredients -->
+    <div class="table-container">
+      <table id="ingredientTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Original Ingredient (OCR)</th>
+            <th>Proposed Correction</th>
+            <th>Primary Status</th>
+            <th>PubChem CID</th>
+            <th>NR-AR QSAR</th>
+            <th>Regulatory Compliance</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr data-status="verified" data-assessed="true">
+            <td class="mono">1</td>
+            <td><strong>Aqua</strong></td>
+            <td>
+              <span style="color: var(--text-muted);">—</span>
+            </td>
+            <td><span class="badge badge-verified">Verified</span></td>
+            <td class="mono">962</td>
+            <td><span class="badge badge-qsar-inactive">Inactive (0.00)</span> <span class="badge badge-warning-lowsim" title="Low similarity to reference set">Low Sim</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-1')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-1" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> No obvious OCR corruption detected.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">O</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> Authoritative evaluation for Aqua: Skin irritation corrosion: non_irritating (Cosmetic Ingredient Review (CIR)); Skin sensitization: non_sensitizing (Cosmetic Ingredient Review (CIR)). Evidence retrieved from curated assessments.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> NR-AR assay prediction completed. This is not a determination of cosmetic safety.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="verified" data-assessed="true">
+            <td class="mono">2</td>
+            <td><strong>Octocrylene</strong></td>
+            <td>
+              <span style="color: var(--text-muted);">—</span>
+            </td>
+            <td><span class="badge badge-verified">Verified</span></td>
+            <td class="mono">22571</td>
+            <td><span class="badge badge-qsar-inactive">Inactive (0.03)</span></td>
+            <td><span class="badge badge-review">Restricted Annex</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-2')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-2" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> No obvious OCR corruption detected.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">CCCCC(CC)COC(=O)C(=C(C1=CC=CC=C1)C2=CC=CC=C2)C#N</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> Authoritative evaluation for Octocrylene: Skin irritation corrosion: mild_to_non_irritating (Scientific Committee on Consumer Safety (SCCS)); Skin sensitization: potential_photoallergic_sensitizer (Scientific Committee on Consumer Safety (SCCS)); Reproductive developmental toxicity: safe_within_concentration_limits (Scientific Committee on Consumer Safety (SCCS)). Evidence retrieved from curated assessments.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> BIS IS 4707 (Part 2):2017, Table 4 (UV Filters permitted in cosmetics) (INCOMPLETE: Permitted up to 10.0%, but formulated concentration is unknown or missing.)</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> NR-AR assay prediction completed. This is not a determination of cosmetic safety.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="not_found" data-assessed="false">
+            <td class="mono">3</td>
+            <td><strong>Diisopropy| Adipate</strong></td>
+            <td>
+              <span style="color: var(--accent-cyan); font-weight: 500;">Diisopropyl Adipate</span>
+            </td>
+            <td><span class="badge badge-notfound">Not Found</span></td>
+            <td class="mono">—</td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Not Run</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-3')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-3" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> Pipe character '|' substituted for letter 'l'.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">None</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> No verified chemical identity (PubChem CID) is available for 'Diisopropy| Adipate'. Authoritative toxicological evidence cannot be resolved without a verified substance identifier.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> No usable PubChem record was found for the ingredient or its configured alternatives.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="not_found" data-assessed="false">
+            <td class="mono">4</td>
+            <td><strong>Propylene Giycx Seanrylate/Dicaprate</strong></td>
+            <td>
+              <span style="color: var(--accent-cyan); font-weight: 500;">Propylene Glycol Dicaprylate/Dicaprate</span>
+            </td>
+            <td><span class="badge badge-notfound">Not Found</span></td>
+            <td class="mono">—</td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Not Run</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-4')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-4" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> Typographical errors 'giycx' -> 'glycol' and 'seanrylate' -> 'dicaprylate'.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">None</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> No verified chemical identity (PubChem CID) is available for 'Propylene Giycx Seanrylate/Dicaprate'. Authoritative toxicological evidence cannot be resolved without a verified substance identifier.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> No usable PubChem record was found for the ingredient or its configured alternatives.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="complex_mixture" data-assessed="false">
+            <td class="mono">5</td>
+            <td><strong>C12-15 Alkyl Benzoate</strong></td>
+            <td>
+              <span style="color: var(--text-muted);">—</span>
+            </td>
+            <td><span class="badge badge-neutral" style="background: rgba(147, 51, 234, 0.2); color: #c084fc; border: 1px solid rgba(147, 51, 234, 0.4);">Complex Mixture</span></td>
+            <td class="mono">—</td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Not Run</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-5')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-5" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> No obvious OCR corruption detected.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">None</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> No verified chemical identity (PubChem CID) is available for 'C12-15 Alkyl Benzoate'. Authoritative toxicological evidence cannot be resolved without a verified substance identifier.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> Established complex mixture, polymer, biopolymer, or UVCB material; a single discrete chemical structure cannot be assumed.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="verified" data-assessed="true">
+            <td class="mono">6</td>
+            <td><strong>Diisopropyl Sebacate</strong></td>
+            <td>
+              <span style="color: var(--text-muted);">—</span>
+            </td>
+            <td><span class="badge badge-verified">Verified</span></td>
+            <td class="mono">24096</td>
+            <td><span class="badge badge-qsar-inactive">Inactive (0.01)</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-6')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-6" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> No obvious OCR corruption detected.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">CC(C)OC(=O)CCCCCCCCC(=O)OC(C)C</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> Authoritative evaluation for Diisopropyl Sebacate: Skin irritation corrosion: mild_transient_irritation (Cosmetic Ingredient Review (CIR) Expert Panel); Skin sensitization: non_sensitizing (Cosmetic Ingredient Review (CIR) Expert Panel). Evidence retrieved from curated assessments.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> NR-AR assay prediction completed. This is not a determination of cosmetic safety.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="not_found" data-assessed="false">
+            <td class="mono">7</td>
+            <td><strong>Buty Wehoxydibenzoylmethane</strong></td>
+            <td>
+              <span style="color: var(--accent-cyan); font-weight: 500;">Butyl Methoxydibenzoylmethane</span>
+            </td>
+            <td><span class="badge badge-notfound">Not Found</span></td>
+            <td class="mono">—</td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Not Run</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-7')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-7" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> Leading truncation 'Buty' -> 'Butyl' and OCR typo 'Wehoxydibenzoylmethane' -> 'Methoxydibenzoylmethane'.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">None</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> No verified chemical identity (PubChem CID) is available for 'Buty Wehoxydibenzoylmethane'. Authoritative toxicological evidence cannot be resolved without a verified substance identifier.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> No usable PubChem record was found for the ingredient or its configured alternatives.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="verified" data-assessed="true">
+            <td class="mono">8</td>
+            <td><strong>Isododecane</strong></td>
+            <td>
+              <span style="color: var(--text-muted);">—</span>
+            </td>
+            <td><span class="badge badge-verified">Verified</span></td>
+            <td class="mono">23459</td>
+            <td><span class="badge badge-qsar-inactive">Inactive (0.22)</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-8')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-8" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> No obvious OCR corruption detected.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">CCCCCCCCCC(C)C</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> Authoritative evaluation for Isododecane: Skin irritation corrosion: mild_dryness_irritant (Cosmetic Ingredient Review (CIR) Expert Panel); Genotoxicity carcinogenicity: non_genotoxic (European Chemicals Agency (ECHA)). Evidence retrieved from curated assessments.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> NR-AR assay prediction completed. This is not a determination of cosmetic safety.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="verified" data-assessed="true">
+            <td class="mono">9</td>
+            <td><strong>Niacinamide</strong></td>
+            <td>
+              <span style="color: var(--text-muted);">—</span>
+            </td>
+            <td><span class="badge badge-verified">Verified</span></td>
+            <td class="mono">936</td>
+            <td><span class="badge badge-qsar-inactive">Inactive (0.00)</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-9')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-9" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> No obvious OCR corruption detected.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">C1=CC(=CN=C1)C(=O)N</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> Authoritative evaluation for Niacinamide: Skin irritation corrosion: non_irritating_at_use_concentrations (Cosmetic Ingredient Review (CIR) Expert Panel); Eye irritation: minimally_irritating (Cosmetic Ingredient Review (CIR) Expert Panel); Skin sensitization: non_sensitizing (Cosmetic Ingredient Review (CIR) Expert Panel); Genotoxicity carcinogenicity: non_genotoxic (Cosmetic Ingredient Review (CIR) Expert Panel); Reproductive developmental toxicity: no_adverse_effect_at_cosmetic_exposure (Cosmetic Ingredient Review (CIR) Expert Panel). Evidence retrieved from curated assessments.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> NR-AR assay prediction completed. This is not a determination of cosmetic safety.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="not_found" data-assessed="false">
+            <td class="mono">10</td>
+            <td><strong>Arachidy| Alcoho! Sehenyi Alcohol</strong></td>
+            <td>
+              <span style="color: var(--accent-cyan); font-weight: 500;">Arachidyl Alcohol / Behenyl Alcohol</span>
+            </td>
+            <td><span class="badge badge-notfound">Not Found</span></td>
+            <td class="mono">—</td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Not Run</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-10')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-10" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> Two separate cosmetic fatty alcohol ingredients merged by OCR segmentation error, with glyph substitutions '|' and '!' for 'l'.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">None</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> No verified chemical identity (PubChem CID) is available for 'Arachidy| Alcoho! Sehenyi Alcohol'. Authoritative toxicological evidence cannot be resolved without a verified substance identifier.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> No usable PubChem record was found for the ingredient or its configured alternatives.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="not_found" data-assessed="false">
+            <td class="mono">11</td>
+            <td><strong>Arachidy! Glucoside</strong></td>
+            <td>
+              <span style="color: var(--accent-cyan); font-weight: 500;">Arachidyl Glucoside</span>
+            </td>
+            <td><span class="badge badge-notfound">Not Found</span></td>
+            <td class="mono">—</td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Not Run</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-11')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-11" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> Exclamation mark '!' substituted for letter 'l'.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">None</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> No verified chemical identity (PubChem CID) is available for 'Arachidy! Glucoside'. Authoritative toxicological evidence cannot be resolved without a verified substance identifier.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> No usable PubChem record was found for the ingredient or its configured alternatives.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="complex_mixture" data-assessed="false">
+            <td class="mono">12</td>
+            <td><strong>Caprylic/Capric Triglyceride</strong></td>
+            <td>
+              <span style="color: var(--text-muted);">—</span>
+            </td>
+            <td><span class="badge badge-neutral" style="background: rgba(147, 51, 234, 0.2); color: #c084fc; border: 1px solid rgba(147, 51, 234, 0.4);">Complex Mixture</span></td>
+            <td class="mono">—</td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Not Run</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-12')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-12" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> No obvious OCR corruption detected.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">None</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> No verified chemical identity (PubChem CID) is available for 'Caprylic/Capric Triglyceride'. Authoritative toxicological evidence cannot be resolved without a verified substance identifier.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> Established complex mixture, polymer, biopolymer, or UVCB material; a single discrete chemical structure cannot be assumed.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="not_found" data-assessed="false">
+            <td class="mono">13</td>
+            <td><strong>Titanium Doxide</strong></td>
+            <td>
+              <span style="color: var(--accent-cyan); font-weight: 500;">Titanium Dioxide</span>
+            </td>
+            <td><span class="badge badge-notfound">Not Found</span></td>
+            <td class="mono">—</td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Not Run</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-13')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-13" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> Missing letter 'i' in 'Doxide'.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">None</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> No verified chemical identity (PubChem CID) is available for 'Titanium Doxide'. Authoritative toxicological evidence cannot be resolved without a verified substance identifier.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> No usable PubChem record was found for the ingredient or its configured alternatives.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="not_found" data-assessed="false">
+            <td class="mono">14</td>
+            <td><strong>Ethylhexyi Triazone</strong></td>
+            <td>
+              <span style="color: var(--accent-cyan); font-weight: 500;">Ethylhexyl Triazone</span>
+            </td>
+            <td><span class="badge badge-notfound">Not Found</span></td>
+            <td class="mono">—</td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Not Run</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-14')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-14" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> Letter 'i' substituted for letter 'l' in 'Ethylhexyi'.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">None</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> No verified chemical identity (PubChem CID) is available for 'Ethylhexyi Triazone'. Authoritative toxicological evidence cannot be resolved without a verified substance identifier.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> No usable PubChem record was found for the ingredient or its configured alternatives.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="complex_mixture" data-assessed="false">
+            <td class="mono">15</td>
+            <td><strong>PEG-100 Stearate</strong></td>
+            <td>
+              <span style="color: var(--text-muted);">—</span>
+            </td>
+            <td><span class="badge badge-neutral" style="background: rgba(147, 51, 234, 0.2); color: #c084fc; border: 1px solid rgba(147, 51, 234, 0.4);">Complex Mixture</span></td>
+            <td class="mono">—</td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Not Run</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-15')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-15" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> No obvious OCR corruption detected.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">None</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> No verified chemical identity (PubChem CID) is available for 'PEG-100 Stearate'. Authoritative toxicological evidence cannot be resolved without a verified substance identifier.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> Established complex mixture, polymer, biopolymer, or UVCB material; a single discrete chemical structure cannot be assumed.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="needs_review" data-assessed="false">
+            <td class="mono">16</td>
+            <td><strong>Glyceryl Stearate</strong></td>
+            <td>
+              <span style="color: var(--text-muted);">—</span>
+            </td>
+            <td><span class="badge badge-review">Needs Review</span></td>
+            <td class="mono">93066</td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Not Run</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-16')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-16" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> No obvious OCR corruption detected.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">CCCCCCCCCCCCCCCCCC(=O)O.C(C(CO)O)O</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> No verified chemical identity (PubChem CID) is available for 'Glyceryl Stearate'. Authoritative toxicological evidence cannot be resolved without a verified substance identifier.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> Candidate structure retrieved from PubChem (CID 93066), but Commercial material is a mixture of mono-, di-, and triglycerides of stearic and palmitic acids, not pure 1-monostearin. Single chemical identity cannot be verified automatically. QSAR screening blocked.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="not_found" data-assessed="false">
+            <td class="mono">17</td>
+            <td><strong>Butyl Gyoo</strong></td>
+            <td>
+              <span style="color: var(--accent-cyan); font-weight: 500;">Butylene Glycol</span>
+            </td>
+            <td><span class="badge badge-notfound">Not Found</span></td>
+            <td class="mono">—</td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Not Run</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-17')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-17" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> Truncation of 'glycol' into 'gyoo'.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">None</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> No verified chemical identity (PubChem CID) is available for 'Butyl Gyoo'. Authoritative toxicological evidence cannot be resolved without a verified substance identifier.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> No usable PubChem record was found for the ingredient or its configured alternatives.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="needs_review" data-assessed="false">
+            <td class="mono">18</td>
+            <td><strong>Linoleic Acid</strong></td>
+            <td>
+              <span style="color: var(--text-muted);">—</span>
+            </td>
+            <td><span class="badge badge-review">Needs Review</span></td>
+            <td class="mono">5280450</td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Not Run</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-18')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-18" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> No obvious OCR corruption detected.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">CCCCCC=CCC=CCCCCCCCC(=O)O</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> No verified chemical identity (PubChem CID) is available for 'Linoleic Acid'. Authoritative toxicological evidence cannot be resolved without a verified substance identifier.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> Candidate structure retrieved from PubChem (CID 5280450), but Commercial fatty acid fractions contain variable cis/trans and positional double-bond isomer distributions (9Z,12Z vs conjugated linoleic isomers). Single chemical identity cannot be verified automatically. QSAR screening blocked.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="needs_review" data-assessed="false">
+            <td class="mono">19</td>
+            <td><strong>Linolenic Acid</strong></td>
+            <td>
+              <span style="color: var(--text-muted);">—</span>
+            </td>
+            <td><span class="badge badge-review">Needs Review</span></td>
+            <td class="mono">5280934</td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Not Run</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-19')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-19" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> No obvious OCR corruption detected.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">CCC=CCC=CCC=CCCCCCCCC(=O)O</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> No verified chemical identity (PubChem CID) is available for 'Linolenic Acid'. Authoritative toxicological evidence cannot be resolved without a verified substance identifier.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> Candidate structure retrieved from PubChem (CID 5280934), but Represents multiple positional isomers (alpha-linolenic 9Z,12Z,15Z-octadecatrienoic acid vs gamma-linolenic 6Z,9Z,12Z-octadecatrienoic acid). Single chemical identity cannot be verified automatically. QSAR screening blocked.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="needs_review" data-assessed="false">
+            <td class="mono">20</td>
+            <td><strong>Panthenol</strong></td>
+            <td>
+              <span style="color: var(--text-muted);">—</span>
+            </td>
+            <td><span class="badge badge-review">Needs Review</span></td>
+            <td class="mono">4678</td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Not Run</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-20')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-20" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> No obvious OCR corruption detected.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">CC(C)(CO)C(C(=O)NCCCO)O</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> No verified chemical identity (PubChem CID) is available for 'Panthenol'. Authoritative toxicological evidence cannot be resolved without a verified substance identifier.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> Candidate structure retrieved from PubChem (CID 4678), but Exists as D-panthenol (dexpanthenol, biologically active) and DL-panthenol (racemic mixture). Single chemical identity cannot be verified automatically. QSAR screening blocked.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="complex_mixture" data-assessed="false">
+            <td class="mono">21</td>
+            <td><strong>Sodium Hyaluronate</strong></td>
+            <td>
+              <span style="color: var(--text-muted);">—</span>
+            </td>
+            <td><span class="badge badge-neutral" style="background: rgba(147, 51, 234, 0.2); color: #c084fc; border: 1px solid rgba(147, 51, 234, 0.4);">Complex Mixture</span></td>
+            <td class="mono">—</td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Not Run</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-21')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-21" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> No obvious OCR corruption detected.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">None</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> No verified chemical identity (PubChem CID) is available for 'Sodium Hyaluronate'. Authoritative toxicological evidence cannot be resolved without a verified substance identifier.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> Established complex mixture, polymer, biopolymer, or UVCB material; a single discrete chemical structure cannot be assumed.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="not_found" data-assessed="false">
+            <td class="mono">22</td>
+            <td><strong>Hanioin</strong></td>
+            <td>
+              <span style="color: var(--text-muted);">—</span>
+            </td>
+            <td><span class="badge badge-notfound">Not Found</span></td>
+            <td class="mono">—</td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Not Run</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-22')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-22" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> Heavily distorted OCR character sequence with multiple possible interpretations.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">None</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> No verified chemical identity (PubChem CID) is available for 'Hanioin'. Authoritative toxicological evidence cannot be resolved without a verified substance identifier.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> No usable PubChem record was found for the ingredient or its configured alternatives.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="needs_review" data-assessed="false">
+            <td class="mono">23</td>
+            <td><strong>Tocopherol Acetate</strong></td>
+            <td>
+              <span style="color: var(--text-muted);">—</span>
+            </td>
+            <td><span class="badge badge-review">Needs Review</span></td>
+            <td class="mono">86472</td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Not Run</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-23')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-23" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> No obvious OCR corruption detected.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">CC1=C(C(=C(C2=C1OC(CC2)(C)CCCC(C)CCCC(C)CCCC(C)C)C)OC(=O)C)C</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> No verified chemical identity (PubChem CID) is available for 'Tocopherol Acetate'. Authoritative toxicological evidence cannot be resolved without a verified substance identifier.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> Candidate structure retrieved from PubChem (CID 86472), but Typically synthetic all-rac-alpha-tocopheryl acetate (8 stereoisomers) or natural D-alpha-tocopheryl acetate. Single chemical identity cannot be verified automatically. QSAR screening blocked.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="needs_review" data-assessed="false">
+            <td class="mono">24</td>
+            <td><strong>Retinol</strong></td>
+            <td>
+              <span style="color: var(--text-muted);">—</span>
+            </td>
+            <td><span class="badge badge-review">Needs Review</span></td>
+            <td class="mono">445354</td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Not Run</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-24')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-24" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> No obvious OCR corruption detected.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">CC1=C(C(CCC1)(C)C)C=CC(=CC=CC(=CCO)C)C</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> No verified chemical identity (PubChem CID) is available for 'Retinol'. Authoritative toxicological evidence cannot be resolved without a verified substance identifier.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> Candidate structure retrieved from PubChem (CID 445354), but Susceptible to isomerization (all-trans vs cis) and oxidation; commercial raw materials often contain stabilizer additives. Single chemical identity cannot be verified automatically. QSAR screening blocked.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="complex_mixture" data-assessed="false">
+            <td class="mono">25</td>
+            <td><strong>Polysorbate 20</strong></td>
+            <td>
+              <span style="color: var(--text-muted);">—</span>
+            </td>
+            <td><span class="badge badge-neutral" style="background: rgba(147, 51, 234, 0.2); color: #c084fc; border: 1px solid rgba(147, 51, 234, 0.4);">Complex Mixture</span></td>
+            <td class="mono">—</td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Not Run</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-25')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-25" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> No obvious OCR corruption detected.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">None</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> No verified chemical identity (PubChem CID) is available for 'Polysorbate 20'. Authoritative toxicological evidence cannot be resolved without a verified substance identifier.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> Established complex mixture, polymer, biopolymer, or UVCB material; a single discrete chemical structure cannot be assumed.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="not_found" data-assessed="false">
+            <td class="mono">26</td>
+            <td><strong>Hydroxyethy! Acy'* Sodum Acryloyidimethyl Taurate Copolymer</strong></td>
+            <td>
+              <span style="color: var(--accent-cyan); font-weight: 500;">Hydroxyethyl Acrylate/Sodium Acryloyldimethyl Taurate Copolymer</span>
+            </td>
+            <td><span class="badge badge-notfound">Not Found</span></td>
+            <td class="mono">—</td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Not Run</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-26')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-26" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> Punctuation noise ('!', ''*') and OCR typos in synthetic copolymer name.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">None</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> No verified chemical identity (PubChem CID) is available for 'Hydroxyethy! Acy'* Sodum Acryloyidimethyl Taurate Copolymer'. Authoritative toxicological evidence cannot be resolved without a verified substance identifier.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> No usable PubChem record was found for the ingredient or its configured alternatives.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="complex_mixture" data-assessed="false">
+            <td class="mono">27</td>
+            <td><strong>Xanthan Gum</strong></td>
+            <td>
+              <span style="color: var(--text-muted);">—</span>
+            </td>
+            <td><span class="badge badge-neutral" style="background: rgba(147, 51, 234, 0.2); color: #c084fc; border: 1px solid rgba(147, 51, 234, 0.4);">Complex Mixture</span></td>
+            <td class="mono">—</td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Not Run</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-27')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-27" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> No obvious OCR corruption detected.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">None</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> No verified chemical identity (PubChem CID) is available for 'Xanthan Gum'. Authoritative toxicological evidence cannot be resolved without a verified substance identifier.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> Established complex mixture, polymer, biopolymer, or UVCB material; a single discrete chemical structure cannot be assumed.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="not_found" data-assessed="false">
+            <td class="mono">28</td>
+            <td><strong>Polyacryale Cspolymer-6</strong></td>
+            <td>
+              <span style="color: var(--accent-cyan); font-weight: 500;">Polyacrylate Crosspolymer-6</span>
+            </td>
+            <td><span class="badge badge-notfound">Not Found</span></td>
+            <td class="mono">—</td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Not Run</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-28')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-28" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> Typos 'polyacryale' -> 'polyacrylate' and 'cspolymer' -> 'crosspolymer'.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">None</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> No verified chemical identity (PubChem CID) is available for 'Polyacryale Cspolymer-6'. Authoritative toxicological evidence cannot be resolved without a verified substance identifier.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> No usable PubChem record was found for the ingredient or its configured alternatives.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="needs_review" data-assessed="false">
+            <td class="mono">29</td>
+            <td><strong>Silica</strong></td>
+            <td>
+              <span style="color: var(--text-muted);">—</span>
+            </td>
+            <td><span class="badge badge-review">Needs Review</span></td>
+            <td class="mono">24261</td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Not Run</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-29')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-29" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> No obvious OCR corruption detected.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">O=[Si]=O</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> No verified chemical identity (PubChem CID) is available for 'Silica'. Authoritative toxicological evidence cannot be resolved without a verified substance identifier.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> Candidate structure retrieved from PubChem (CID 24261), but Synthetic amorphous silica forms continuous polymer network lattices ((SiO2)n) with variable particle porosity, not monomeric gas-phase SiO2. Single chemical identity cannot be verified automatically. QSAR screening blocked.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="complex_mixture" data-assessed="false">
+            <td class="mono">30</td>
+            <td><strong>Acacia Gum</strong></td>
+            <td>
+              <span style="color: var(--text-muted);">—</span>
+            </td>
+            <td><span class="badge badge-neutral" style="background: rgba(147, 51, 234, 0.2); color: #c084fc; border: 1px solid rgba(147, 51, 234, 0.4);">Complex Mixture</span></td>
+            <td class="mono">—</td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Not Run</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-30')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-30" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> No obvious OCR corruption detected.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">None</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> No verified chemical identity (PubChem CID) is available for 'Acacia Gum'. Authoritative toxicological evidence cannot be resolved without a verified substance identifier.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> Established complex mixture, polymer, biopolymer, or UVCB material; a single discrete chemical structure cannot be assumed.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="needs_review" data-assessed="false">
+            <td class="mono">31</td>
+            <td><strong>Phenoxyethanol</strong></td>
+            <td>
+              <span style="color: var(--text-muted);">—</span>
+            </td>
+            <td><span class="badge badge-review">Needs Review</span></td>
+            <td class="mono">31236</td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Not Run</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-31')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-31" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> No obvious OCR corruption detected.</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">C1=CC=C(C=C1)OCCO</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> No verified chemical identity (PubChem CID) is available for 'Phenoxyethanol'. Authoritative toxicological evidence cannot be resolved without a verified substance identifier.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> A candidate structure was found, but it does not have a matching curated identity rule. Verify the identity before QSAR screening.</p>
+              </div>
+            </td>
+          </tr>
+        
+          <tr data-status="not_found" data-assessed="false">
+            <td class="mono">32</td>
+            <td><strong>Ethylhexyigyoe" \sotium Ethylenediamine Disuccinate Wine = ee</strong></td>
+            <td>
+              <span style="color: var(--accent-cyan); font-weight: 500;">Ethylhexylglycerin / Trisodium Ethylenediamine Disuccinate</span>
+            </td>
+            <td><span class="badge badge-notfound">Not Found</span></td>
+            <td class="mono">—</td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Not Run</span></td>
+            <td><span style="color: var(--text-muted); font-size: 0.8rem;">Unlisted in Annexes</span></td>
+            <td>
+              <button class="expand-btn" onclick="toggleDetails('detail-32')">Details</button>
+            </td>
+          </tr>
+          <tr id="detail-32" style="display: none; background: rgba(15, 23, 42, 0.4);">
+            <td colspan="8">
+              <div class="row-detail" style="display: block;">
+                <p><strong>Correction Provenance:</strong> Merged ingredient tokens with OCR noise and trailing junk text ('Wine = ee').</p>
+                <p style="margin-top: 0.25rem;"><strong>SMILES:</strong> <span class="mono" style="color: #38bdf8;">None</span></p>
+                <p style="margin-top: 0.25rem;"><strong>Toxicological Assessment:</strong> No verified chemical identity (PubChem CID) is available for 'Ethylhexyigyoe" \sotium Ethylenediamine Disuccinate Wine = ee'. Authoritative toxicological evidence cannot be resolved without a verified substance identifier.</p>
+                <p style="margin-top: 0.25rem;"><strong>Regulatory Citations:</strong> General cosmetic safety provisions apply. ()</p>
+                <p style="margin-top: 0.25rem; color: var(--text-muted);"><em>Assessment Reason:</em> No usable PubChem record was found for the ingredient or its configured alternatives.</p>
+              </div>
+            </td>
+          </tr>
+        
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Footer Insights -->
+    <div class="footer-grid">
+      <div class="footer-card">
+        <h3>Knowledge Graph Structure</h3>
+        <p>
+          CosmoSafe constructed an interconnected knowledge graph with
+          <strong>95 nodes</strong> and
+          <strong>94 typed edges</strong>.
+          Relationships preserve explicit provenance connecting Products &rarr; Ingredients &rarr; Chemical Substances &rarr; QSAR &rarr; Toxicological Evidence &rarr; Regulatory Rules.
+        </p>
+      </div>
+      <div class="footer-card">
+        <h3>Scientific & Legal Disclaimers</h3>
+        <p>
+          Computational QSAR predictions evaluate specific in vitro assays (Tox21 NR-AR) and do not constitute proof of finished product cosmetic safety or systemic human risk. Unassessed or unverified ingredients are never assumed safe. Absence from regulatory restricted annexes does not replace finished cosmetic safety testing.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleDetails(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.style.display = el.style.display === 'none' ? 'table-row' : 'none';
+      }
+    }
+
+    function filterTable(filter) {
+      const rows = document.querySelectorAll('#ingredientTable tbody tr[data-status]');
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      rows.forEach(row => {
+        const status = row.getAttribute('data-status');
+        const isAssessed = row.getAttribute('data-assessed') === 'true';
+        let show = false;
+
+        if (filter === 'all') show = true;
+        else if (filter === 'verified') show = (status === 'verified');
+        else if (filter === 'needs_review') show = (status === 'needs_review');
+        else if (filter === 'not_found') show = (status === 'not_found');
+        else if (filter === 'assessed') show = isAssessed;
+
+        row.style.display = show ? '' : 'none';
+        const nextRow = row.nextElementSibling;
+        if (nextRow && nextRow.id && nextRow.id.startsWith('detail-') && !show) {
+          nextRow.style.display = 'none';
+        }
+      });
+    }
+
+    document.getElementById('ingredientSearch').addEventListener('input', function(e) {
+      const query = e.target.value.toLowerCase();
+      const rows = document.querySelectorAll('#ingredientTable tbody tr[data-status]');
+      rows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        const show = text.includes(query);
+        row.style.display = show ? '' : 'none';
+        const nextRow = row.nextElementSibling;
+        if (nextRow && nextRow.id && nextRow.id.startsWith('detail-') && !show) {
+          nextRow.style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

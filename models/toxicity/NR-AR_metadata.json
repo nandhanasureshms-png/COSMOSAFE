@@ -1,0 +1,15 @@
+{
+  "endpoint": "NR-AR",
+  "model_type": "RandomForestClassifier",
+  "fingerprint": "Morgan",
+  "fingerprint_radius": 2,
+  "fingerprint_bits": 2048,
+  "random_seed": 42,
+  "test_size": 0.2,
+  "roc_auc": 0.7484683221165003,
+  "average_precision": 0.397943601222768,
+  "positive_test_prevalence": 0.04269972451790634,
+  "training_records": 5806,
+  "test_records": 1452,
+  "note": "Initial random split; duplicate and scaffold leakage checks are still required before relying on generalization estimates."
+}

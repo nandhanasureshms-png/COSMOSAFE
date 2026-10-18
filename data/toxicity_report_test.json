@@ -1,0 +1,228 @@
+{
+  "schema_version": "1.3",
+  "generated_at": "2026-10-18T05:10:19.956002+00:00",
+  "pipeline_status": "completed_with_warnings",
+  "summary": {
+    "ingredients_processed": 4,
+    "primary_status_counts": {
+      "verified": 1,
+      "needs_review": 1,
+      "complex_mixture": 1,
+      "not_found": 1,
+      "api_error": 0,
+      "invalid_input": 0
+    },
+    "pubchem_candidate_records_found": 2,
+    "ingredients_mapped_verified": 1,
+    "ingredients_needing_identity_review": 1,
+    "ingredients_not_found": 1,
+    "complex_ingredients": 1,
+    "api_or_processing_errors": 0,
+    "invalid_input_entries": 0,
+    "ingredients_eligible_for_screening": 1,
+    "screening_attempts": 1,
+    "successful_predictions": 1,
+    "failed_predictions": 0,
+    "ingredients_screened": 1,
+    "ingredients_not_assessed": 3,
+    "not_assessed_reasons": {
+      "identity_needs_review": 1,
+      "complex_mixture": 1,
+      "chemical_not_found": 1
+    },
+    "ingredients_with_warnings": 3,
+    "total_warnings": 3,
+    "warning_counts": {
+      "identity_needs_review": 1,
+      "complex_mixture": 1,
+      "chemical_not_found": 1
+    }
+  },
+  "important_notice": "PubChem candidate records are not automatically verified ingredient identities. NR-AR results are assay-specific computational predictions, not determinations of cosmetic safety or human health risk. A missing prediction does not mean that an ingredient is safe or toxic. Identity evidence, model applicability, and limitations must be considered.",
+  "results": [
+    {
+      "raw_ingredient": "Niacinamide",
+      "normalized_ingredient": "niacinamide",
+      "primary_status": "verified",
+      "assessment_status": "assessed",
+      "assessment_reason": "screened_successfully",
+      "assessment_message": "NR-AR assay prediction completed. This is not a determination of cosmetic safety.",
+      "warnings": [],
+      "screening_eligible": true,
+      "screening_attempted": true,
+      "mapping": {
+        "status": "mapped",
+        "message": "Matched a curated ingredient-to-CID mapping. Identity mapping passed; toxicity has not been assessed.",
+        "identity_verified": true,
+        "has_candidate_record": true,
+        "needs_manual_review": false,
+        "matched_search_term": "Niacinamide",
+        "candidate_pubchem_cids": [
+          936
+        ],
+        "pubchem_cid": 936,
+        "molecular_formula": "C6H6N2O",
+        "molecular_weight": "122.12",
+        "iupac_name": "pyridine-3-carboxamide",
+        "connectivity_smiles": "C1=CC(=CN=C1)C(=O)N"
+      },
+      "toxicity": {
+        "status": "completed",
+        "message": "NR-AR assay activity prediction completed. This does not establish overall ingredient or product safety.",
+        "endpoint": "NR-AR",
+        "predicted_activity": 0,
+        "activity_probability": 0.0,
+        "decision_threshold": 0.5,
+        "maximum_reference_similarity": 1.0,
+        "applicability": "reference_similar",
+        "applicability_message": "A structurally similar reference was found. This does not establish prediction reliability.",
+        "model_type": "RandomForestClassifier",
+        "interpretation": "Estimated probability of activity in the NR-AR assay; not a general cosmetic safety determination.",
+        "limitations": [
+          "Only the NR-AR endpoint is supported by this predictor.",
+          "The probability is not a probability of harm to a person.",
+          "Maximum fingerprint similarity is not a calibrated confidence score.",
+          "The provisional similarity threshold has not been validated."
+        ],
+        "error": null
+      }
+    },
+    {
+      "raw_ingredient": "Glycerin",
+      "normalized_ingredient": "glycerin",
+      "primary_status": "needs_review",
+      "assessment_status": "not_assessed",
+      "assessment_reason": "identity_needs_review",
+      "assessment_message": "A candidate structure was found, but it does not have a matching curated identity rule. Verify the identity before QSAR screening.",
+      "warnings": [
+        {
+          "code": "identity_needs_review",
+          "message": "A candidate structure was found, but it does not have a matching curated identity rule. Verify the identity before QSAR screening."
+        }
+      ],
+      "screening_eligible": false,
+      "screening_attempted": false,
+      "mapping": {
+        "status": "needs_review",
+        "message": "A candidate structure was found, but it does not have a matching curated identity rule. Verify the identity before QSAR screening.",
+        "identity_verified": false,
+        "has_candidate_record": true,
+        "needs_manual_review": true,
+        "matched_search_term": "Glycerin",
+        "candidate_pubchem_cids": [
+          753
+        ],
+        "pubchem_cid": 753,
+        "molecular_formula": "C3H8O3",
+        "molecular_weight": "92.09",
+        "iupac_name": "propane-1,2,3-triol",
+        "connectivity_smiles": "C(C(CO)O)O"
+      },
+      "toxicity": {
+        "status": "not_run",
+        "message": "Prediction not run: identity is unverified, ambiguous, or lacks sufficient mapping evidence.",
+        "endpoint": null,
+        "predicted_activity": null,
+        "activity_probability": null,
+        "decision_threshold": null,
+        "maximum_reference_similarity": null,
+        "applicability": null,
+        "applicability_message": null,
+        "model_type": null,
+        "interpretation": null,
+        "limitations": [],
+        "error": null
+      }
+    },
+    {
+      "raw_ingredient": "Fragrance",
+      "normalized_ingredient": "fragrance",
+      "primary_status": "complex_mixture",
+      "assessment_status": "not_assessed",
+      "assessment_reason": "complex_mixture",
+      "assessment_message": "Possible mixture or complex material; a single structure cannot be assumed.",
+      "warnings": [
+        {
+          "code": "complex_mixture",
+          "message": "Possible mixture or complex material; a single structure cannot be assumed."
+        }
+      ],
+      "screening_eligible": false,
+      "screening_attempted": false,
+      "mapping": {
+        "status": "complex_mixture",
+        "message": "Possible mixture or complex material; a single structure cannot be assumed.",
+        "identity_verified": false,
+        "has_candidate_record": false,
+        "needs_manual_review": true,
+        "matched_search_term": null,
+        "candidate_pubchem_cids": [],
+        "pubchem_cid": null,
+        "molecular_formula": null,
+        "molecular_weight": null,
+        "iupac_name": null,
+        "connectivity_smiles": null
+      },
+      "toxicity": {
+        "status": "not_run",
+        "message": "Prediction not run: identity is unverified, ambiguous, or lacks sufficient mapping evidence.",
+        "endpoint": null,
+        "predicted_activity": null,
+        "activity_probability": null,
+        "decision_threshold": null,
+        "maximum_reference_similarity": null,
+        "applicability": null,
+        "applicability_message": null,
+        "model_type": null,
+        "interpretation": null,
+        "limitations": [],
+        "error": null
+      }
+    },
+    {
+      "raw_ingredient": "DefinitelyNotARealChemical123",
+      "normalized_ingredient": "definitelynotarealchemical123",
+      "primary_status": "not_found",
+      "assessment_status": "not_assessed",
+      "assessment_reason": "chemical_not_found",
+      "assessment_message": "No usable PubChem record was found for the ingredient or its configured alternatives.",
+      "warnings": [
+        {
+          "code": "chemical_not_found",
+          "message": "No usable PubChem record was found for the ingredient or its configured alternatives."
+        }
+      ],
+      "screening_eligible": false,
+      "screening_attempted": false,
+      "mapping": {
+        "status": "not_found",
+        "message": "No usable PubChem record was found for the ingredient or its configured alternatives.",
+        "identity_verified": false,
+        "has_candidate_record": false,
+        "needs_manual_review": true,
+        "matched_search_term": null,
+        "candidate_pubchem_cids": [],
+        "pubchem_cid": null,
+        "molecular_formula": null,
+        "molecular_weight": null,
+        "iupac_name": null,
+        "connectivity_smiles": null
+      },
+      "toxicity": {
+        "status": "not_run",
+        "message": "Prediction not run: identity is unverified, ambiguous, or lacks sufficient mapping evidence.",
+        "endpoint": null,
+        "predicted_activity": null,
+        "activity_probability": null,
+        "decision_threshold": null,
+        "maximum_reference_similarity": null,
+        "applicability": null,
+        "applicability_message": null,
+        "model_type": null,
+        "interpretation": null,
+        "limitations": [],
+        "error": null
+      }
+    }
+  ]
+}
